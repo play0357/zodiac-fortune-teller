@@ -9,7 +9,8 @@ export const GET_ZODIAC = gql`
   getZodiac(sign: $sign) {
   sign
   date
-  horoscope  
+  horoscope
+  period  
   }
 }
 `
@@ -19,7 +20,8 @@ export const GET_ALL_ZODIAC = gql`
   allZodiacs {
   sign
   date
-  horoscope  
+  horoscope
+  period
   }
 } 
 `

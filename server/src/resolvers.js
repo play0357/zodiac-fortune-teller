@@ -1,8 +1,5 @@
-
-import { fetchFortuneTeller, allZodiacs } from "./data.js";
-
 //리졸버 Query나 mutation 불러와서 상태를 조회하거나 업데이트 함
-
+import { fetchFortuneTeller, allZodiacs, zodiacPeriods } from "./data.js";
 
 // 별자리 배열이나 각 별자리 해당 정보 불러오기
 export const resolvers = {
@@ -22,6 +19,7 @@ export const resolvers = {
           date: data.date,
           sign: data.sign,
           horoscope: data.horoscope,
+          period: zodiacPeriods[data.sign] || '알 수 없음',
         };
       } catch (error) {
         console.error(`getZodiac(${sign}) 에러:`, error.message);
@@ -36,14 +34,15 @@ export const resolvers = {
           throw new Error(`별자리 데이터가 배열이 아니에요...`);
 
         }
-        return data.map(item => {
-          if(!item.sign || !item.date || !item.horoscope) {
-            throw new Error(`필요한 필드가 누락되었습니다. ${JSON.stringify(item)}`);
+        return data.map(data => {
+          if(!data.sign || !data.date || !data.horoscope) {
+            throw new Error(`필요한 필드가 누락되었습니다. ${JSON.stringify(data)}`);
           }
           return {
-            sign: item.sign,
-            date: item.date,
-            horoscope: item.horoscope,
+            sign: data.sign,
+            date: data.date,
+            horoscope: data.horoscope,
+            period: zodiacPeriods[data.sign] || '알 수 없음',
           }
         });
       } catch (error) { 

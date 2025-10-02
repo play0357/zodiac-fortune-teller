@@ -11,6 +11,9 @@ export const typeDefs = gql`
         horoscope: String! #운세 텍스트
         
     }
+    extend type Zodiac {
+        period: String!
+    }
     type Query {
         allZodiacs: [Zodiac!]! #모든 운세 반환
         getZodiac(sign: String!): Zodiac! #단일 운세 반환하기

@@ -1,19 +1,21 @@
 import { Link } from "react-router-dom"
-import { Title, HomeContainer,MoreBtn } from "../styles/styledHome"
-
+import { Title, HomeContainer, MoreBtn } from "../styles/styledHome"
+import BirthdaySelector from "../components/selectBirthday"
 export default function Home() {
     return (
         <>
             <HomeContainer>
                 <Title>
-                    생일을 기반으로 오늘 운세를 알아볼까요?
+                    생일을 알려주시면 당신의 별자리와 오늘의 운세를 알아볼게요!
                 </Title>
+                <BirthdaySelector />
                 <MoreBtn>
-                    <Link to={'/all-zodiacs'}>다른 운세 더 보기</Link>
+                    <Link to={'/all-zodiacs'}>다른 별자리 더 보기</Link>
                 </MoreBtn>
-                
+
+
             </HomeContainer>
 
         </>
-    )
+    );
 }

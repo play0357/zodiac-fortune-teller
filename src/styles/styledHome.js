@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
   height: 100vh;
-  gap: 10px;
+  gap: 15px;
   margin: auto;
   padding: 20px;
   display: flex;
@@ -11,7 +11,6 @@ export const HomeContainer = styled.div`
   align-items: center;
   flex-direction: column;
 `
-
 
 export const Title = styled.div`
   font-size: 24px; /
