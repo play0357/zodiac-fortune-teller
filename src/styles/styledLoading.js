@@ -17,3 +17,14 @@ export const Loading = styled.div`
   color: #333; /* 글씨 색상 */
   animation: ${blink} 1.5s ease-in-out infinite; /* 깜빡임 애니메이션 */
 `;
+
+export const ErrorMessage = styled.h1`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  font-size: 24px; /
+  font-weight: bold;
+  text-align: center;
+  color: #333; /* 글씨 색상 */
+`

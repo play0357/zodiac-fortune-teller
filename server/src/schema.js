@@ -13,6 +13,8 @@ export const typeDefs = gql`
     }
     extend type Zodiac {
         period: String!
+        start: String!
+        end: String!
     }
     type Query {
         allZodiacs: [Zodiac!]! #모든 운세 반환

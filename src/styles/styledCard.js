@@ -5,6 +5,7 @@ export const Card = styled.ol`
   border-radius: 5px;
   border: 1px solid #ccc;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: transparent;

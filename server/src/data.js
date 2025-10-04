@@ -7,25 +7,22 @@ const apiKey = process.env.API_KEY; //api 키 가져옴
 
 //별자리 고정 데이터
 // 별자리 기간 데이터
-export const zodiacPeriods = {
-  Aries: '3월 21일 ~ 4월 19일',
-  Taurus: '4월 20일 ~ 5월 20일',
-  Gemini: '5월 21일 ~ 6월 20일',
-  Cancer: '6월 21일 ~ 7월 22일',
-  Leo: '7월 23일 ~ 8월 22일',
-  Virgo: '8월 23일 ~ 9월 22일',
-  Libra: '9월 23일 ~ 10월 22일',
-  Scorpio: '10월 23일 ~ 11월 22일',
-  Sagittarius: '11월 23일 ~ 12월 24일',
-  Capricorn: '12월 25일 ~ 1월 19일',
-  Aquarius: '1월 20일 ~ 2월 18일',
-  Pisces: '2월 19일 ~ 3월 20일',
-};
+export const zodiacsInfo = [
+  { sign: 'Aquarius', start: { month: 1, day: 20 }, end: { month: 2, day: 18 }, period: '1월 20일 ~ 2월 18일' },
+  { sign: 'Pisces', start: { month: 2, day: 19 }, end: { month: 3, day: 20 }, period: '2월 19일 ~ 3월 20일' },
+  { sign: 'Aries', start: { month: 3, day: 21 }, end: { month: 4, day: 19 }, period: '3월 21일 ~ 4월 19일' },
+  { sign: 'Taurus', start: { month: 4, day: 20 }, end: { month: 5, day: 20 }, period: '4월 20일 ~ 5월 20일' },
+  { sign: 'Gemini', start: { month: 5, day: 21 }, end: { month: 6, day: 20 }, period: '5월 21일 ~ 6월 20일' },
+  { sign: 'Cancer', start: { month: 6, day: 21 }, end: { month: 7, day: 22 }, period: '6월 21일 ~ 7월 22일' },
+  { sign: 'Leo', start: { month: 7, day: 23 }, end: { month: 8, day: 22 }, period: '7월 23일 ~ 8월 22일' },
+  { sign: 'Virgo', start: { month: 8, day: 23 }, end: { month: 9, day: 22 }, period: '8월 23일 ~ 9월 22일' },
+  { sign: 'Libra', start: { month: 9, day: 23 }, end: { month: 10, day: 22 }, period: '9월 23일 ~ 10월 22일' },
+  { sign: 'Scorpio', start: { month: 10, day: 23 }, end: { month: 11, day: 22 }, period: '10월 23일 ~ 11월 22일' },
+  { sign: 'Sagittarius', start: { month: 11, day: 23 }, end: { month: 12, day: 24 }, period: '11월 23일 ~ 12월 24일' },
+  { sign: 'Capricorn', start: { month: 12, day: 25 }, end: { month: 1, day: 19 }, period: '12월 25일 ~ 1월 19일' },
+];
 
-const zodiacSigns = [
-    'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-    'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
-  ]
+
 
 const normalizeZodiac = (sign) => {
   if (!sign) throw new Error(`별자리 이름이 제공되지 않았습니다.`);
@@ -69,10 +66,12 @@ export const fetchZodiacList = async () => {
   //   console.error('별자리 목록 가져오기 실패:', error.message);
   //   return zodiacSigns; // 대체로 고정 배열
   // }
-  return zodiacSigns;
+  return zodiacsInfo;
 }
 
 // 모든 별자리 추출
 export const allZodiacs = async () => {
+  //별자리 이름만 따로 배열 만들기
+  const zodiacSigns = zodiacsInfo.map(z => z.sign);
   return Promise.all(zodiacSigns.map(z => fetchFortuneTeller(z)));
 }

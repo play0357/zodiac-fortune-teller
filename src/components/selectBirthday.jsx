@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BirthdaySelectorBox, Container, Result, StyledSelect } from "../styles/styledBirthdaySelector";
+// import { zodiacsInfo } from "../../server/src/data";
+
 // 월 생성
 const months = [
     { value: '01', label: '1월', days: 31 },
@@ -52,6 +54,13 @@ function BirthdaySelector() {
     //선택된 월 일 표시
     const selectedDate = selectedMonth && selectedDay ? `${selectedMonth}월 ${selectedDay}` : '';
 
+    //선택 된 월 일 기반 별자리 찾기
+    // function getSignFromPeriod() {
+    //     if(selectedMonth < zodiacsInfo.find(z => z.start.month) ) {
+
+    //     }
+    //     return;
+    // } 
     return (
         <Container>
             <BirthdaySelectorBox>
@@ -77,7 +86,7 @@ function BirthdaySelector() {
 
             </BirthdaySelectorBox>
             <Result>
-                <Link to={ selectedDate ? '/zodiac' : null} >
+                <Link to={ selectedDate ? `/zodiac` : null} >
                     {selectedDate ? `당신의 생일: ${selectedDate}` : '아직 생일을 알려주지 않았어요'}
                 </Link>
             </Result>

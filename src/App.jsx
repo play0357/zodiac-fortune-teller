@@ -1,6 +1,6 @@
-import ShowAllZodiac from './Route/showAllZodiac'
+import ShowAllZodiac from './Route/Zodiacs'
 import Home from './Route/Home'
-import DailyZodiac from './Route/showOneZodiac'
+import DailyZodiac from './Route/Zodiac'
 import { Routes, Route } from "react-router-dom";
 
 function App() {

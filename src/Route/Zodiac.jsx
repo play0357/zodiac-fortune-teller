@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import { GET_ZODIAC } from "../queries/fortuneQuery";
-import { Loading } from "../styles/styledLoading";
-
+import { ErrorMessage, Loading } from "../styles/styledLoading";
 
 export default function DailyZodiac() {
     const { loading, data, error } = useQuery(GET_ZODIAC);
@@ -14,7 +13,12 @@ export default function DailyZodiac() {
         );
     }
     if (error) {
-        throw new Error(`당신의 운세를 불러오지 못했어요`, error.message);
+
+        return (
+            <ErrorMessage>
+                당신의 운세를 불러오지 못했어요...😥
+            </ErrorMessage>
+        )
     }
 
     return (

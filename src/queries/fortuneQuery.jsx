@@ -10,7 +10,9 @@ export const GET_ZODIAC = gql`
   sign
   date
   horoscope
-  period  
+  period
+  start
+  end  
   }
 }
 `
