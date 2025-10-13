@@ -10,7 +10,7 @@ export default function Home() {
                 </Title>
                 <BirthdaySelector />
                 <MoreBtn>
-                    <Link to={'/all-zodiacs'}>다른 별자리 더 보기</Link>
+                    <Link to={'/zodiacs'}>다른 별자리 더 보기</Link>
                 </MoreBtn>
 
 

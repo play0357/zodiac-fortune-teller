@@ -3,10 +3,10 @@ import dotenv from 'dotenv'
 
 //api key env 파일로 불러오기
 dotenv.config();
-const apiKey = process.env.API_KEY; //api 키 가져옴
+const apiKey = process.env.VITE_API_KEY; //api 키 가져옴
+if(!apiKey) console.error('문제 발생')
+//별자리 고정  기간 데이터
 
-//별자리 고정 데이터
-// 별자리 기간 데이터
 export const zodiacsInfo = [
   { sign: 'Aquarius', start: { month: 1, day: 20 }, end: { month: 2, day: 18 }, period: '1월 20일 ~ 2월 18일' },
   { sign: 'Pisces', start: { month: 2, day: 19 }, end: { month: 3, day: 20 }, period: '2월 19일 ~ 3월 20일' },

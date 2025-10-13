@@ -10,8 +10,8 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/all-zodiacs' element={<ShowAllZodiac/>}/>
-        <Route path= '/zodiac' element={<DailyZodiac/>} />
+        <Route path='/zodiacs' element={<ShowAllZodiac/>}/>
+        <Route path= '/zodiac/:sign' element={<DailyZodiac/>} />
       </Routes>
      
     </>

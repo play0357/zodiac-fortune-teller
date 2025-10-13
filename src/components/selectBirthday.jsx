@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BirthdaySelectorBox, Container, Result, StyledSelect } from "../styles/styledBirthdaySelector";
-// import { zodiacsInfo } from "../../server/src/data";
-
+import  getSignFromPeriod  from './getSignFromPeriod'
+import { useQuery } from "@apollo/client/react";
+import { GET_ALL_ZODIAC } from "../queries/fortuneQuery";
 // 월 생성
 const months = [
     { value: '01', label: '1월', days: 31 },
@@ -19,6 +20,7 @@ const months = [
     { value: '12', label: '12월', days: 31 },
 ]
 
+
 //연도 생성
 // const generateYears = () => {
 //     const years = [];
@@ -34,6 +36,8 @@ function BirthdaySelector() {
     // const [selectedYear, setSelectedYear] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedDay, setSelectedDay] = useState('');
+
+    const {data, loading, error} = useQuery(GET_ALL_ZODIAC);
 
     // const handleYearChange = (event) => {
     //     setSelectedYear(event.target.value);
@@ -54,13 +58,10 @@ function BirthdaySelector() {
     //선택된 월 일 표시
     const selectedDate = selectedMonth && selectedDay ? `${selectedMonth}월 ${selectedDay}` : '';
 
-    //선택 된 월 일 기반 별자리 찾기
-    // function getSignFromPeriod() {
-    //     if(selectedMonth < zodiacsInfo.find(z => z.start.month) ) {
+    //컴포넌트 불러와서 별자리 계산
 
-    //     }
-    //     return;
-    // } 
+    const sign = data && !loading && !error ? getSignFromPeriod(parseInt(selectedMonth), parseInt(selectedDay), data.allZodiacs) : null;
+
     return (
         <Container>
             <BirthdaySelectorBox>
@@ -86,8 +87,8 @@ function BirthdaySelector() {
 
             </BirthdaySelectorBox>
             <Result>
-                <Link to={ selectedDate ? `/zodiac` : null} >
-                    {selectedDate ? `당신의 생일: ${selectedDate}` : '아직 생일을 알려주지 않았어요'}
+                <Link to={sign ? `/zodiac/${sign}` : null} >
+                    {selectedDate ? ` 당신의 운세 보러가기` : '아직 생일을 알려주시지 않았어요'}
                 </Link>
             </Result>
 

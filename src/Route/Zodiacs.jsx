@@ -17,7 +17,7 @@ export default function GetAllZodiac() {
         );
     }
     if (error) { //에러
-        return <h1>데이터를 갖고 오지 못했어요... 😥</h1>;
+        return <h1>데이터를 갖고 오지 못했어요... 😥 {error.message}</h1>;
     }
     //별자리 데이터 받기
     return (

@@ -20,6 +20,8 @@ export const resolvers = {
           sign: data.sign,
           horoscope: data.horoscope,
           period: zodiacsInfo.find(z => z.sign === data.sign)?.period || '알 수 없음',
+          start: data.start || { month: 0, day: 0 },
+          end: data.end || { month: 0, day: 0 }
         };
       } catch (error) {
         console.error(`getZodiac(${sign}) 에러:`, error.message);
@@ -35,7 +37,7 @@ export const resolvers = {
 
         }
         return data.map(data => {
-          if(!data.sign || !data.date || !data.horoscope) {
+          if (!data.sign || !data.date || !data.horoscope) {
             throw new Error(`필요한 필드가 누락되었어요... ${JSON.stringify(data)}`);
           }
           return {
@@ -43,9 +45,11 @@ export const resolvers = {
             date: data.date,
             horoscope: data.horoscope,
             period: zodiacsInfo.find(z => z.sign === data.sign)?.period || '알 수 없음',
+            start: data.start || { month: 0, day: 0 },
+            end: data.end || { month: 0, day: 0 }
           }
         });
-      } catch (error) { 
+      } catch (error) {
         console.log(`allZodiacs 쿼리 에러: `, error.message)
         throw new Error(`별자리를 가져오는데 실패했어요... ${error.message}`);
       }

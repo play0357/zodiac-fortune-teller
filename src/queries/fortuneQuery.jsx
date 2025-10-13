@@ -11,8 +11,14 @@ export const GET_ZODIAC = gql`
   date
   horoscope
   period
-  start
-  end  
+  start {
+    month
+    day
+  }
+  end {
+    month
+    day
+  }
   }
 }
 `
@@ -24,6 +30,14 @@ export const GET_ALL_ZODIAC = gql`
   date
   horoscope
   period
+  start {
+    month
+    day
+  }
+  end {
+    month
+    day
+  }
   }
 } 
 `

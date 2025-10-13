@@ -5,16 +5,17 @@ import { gql } from "graphql-tag"
 
 
 export const typeDefs = gql`
+    type DateInput {
+        month: Int!
+        day: Int!   
+    }
     type Zodiac {
         sign: String! #별자리 이름
         date: String! #날짜
         horoscope: String! #운세 텍스트
-        
-    }
-    extend type Zodiac {
         period: String!
-        start: String!
-        end: String!
+        start: DateInput!
+        end: DateInput!
     }
     type Query {
         allZodiacs: [Zodiac!]! #모든 운세 반환
