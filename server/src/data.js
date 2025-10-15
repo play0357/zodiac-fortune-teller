@@ -1,10 +1,12 @@
 //별자리 목록 및 데이터 외부 API 키 가져오기
+import { Translate } from '@google-cloud/translate/build/src/v2/index.js';
 import dotenv from 'dotenv'
-
+import { GoogleAuth, JWT, JWTAccess } from 'google-auth-library';
+import fs from 'fs';
 //api key env 파일로 불러오기
 dotenv.config();
 const apiKey = process.env.VITE_API_KEY; //api 키 가져옴
-if(!apiKey) console.error('문제 발생')
+if (!apiKey) console.error('문제 발생')
 //별자리 고정  기간 데이터
 
 export const zodiacsInfo = [
@@ -75,3 +77,31 @@ export const allZodiacs = async () => {
   const zodiacSigns = zodiacsInfo.map(z => z.sign);
   return Promise.all(zodiacSigns.map(z => fetchFortuneTeller(z)));
 }
+
+//번역기 호출하기
+//구글 클라우드 서비스 계정 키 정보 불러오기
+
+//환경 변수 검증
+const keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+// 필수 환경 변수 체크
+if (!keyFilename) {
+  console.error('❌ .env 파일에 필수 변수가 누락되었습니다.');
+  console.error('필요한 변수: GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_PROJECT_ID');
+  process.exit(1);
+}
+let credentials;
+try {
+  credentials = JSON.parse(fs.readFileSync(keyFilename));
+}catch(error){
+  console.error('❌ JSON 파일 읽기 실패:', keyFilename, error.message);
+  process.exit(1);
+}
+const auth = new JWT({
+  keyFilename,
+  scopes: 'https://www.googleapis.com/auth/cloud-platform',
+})
+
+//Translate 클라이언트 초기화
+
+const translate = new Translate({ auth });
+export default translate;

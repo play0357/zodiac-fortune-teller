@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client/react";
 import { GET_ZODIAC } from "../queries/fortuneQuery";
 import { ErrorMessage, Loading } from "../styles/styledLoading";
 import { useParams } from "react-router-dom";
-
+import TranslateQuote from "../components/translateQuote";
 export default function DailyZodiac() {
     const { sign } = useParams(); //url에서 :sign 가져오기
     const { loading, data, error } = useQuery(GET_ZODIAC, {
@@ -28,10 +28,10 @@ export default function DailyZodiac() {
     const zodiac = data.getZodiac; //data.getZodiac 객체 가져오기
     return (     
             <>
-                <li>{zodiac.sign}</li>
-                <li>{zodiac.date}</li>
-                <li>{zodiac.horoscope}</li>
-                <li>{zodiac.period}</li>
+                <li><TranslateQuote text ={zodiac.sign} /></li>
+                <li>오늘 날짜:{zodiac.date}</li>
+                <li> <TranslateQuote text ={zodiac.horoscope} /></li>
+                <li>  {zodiac.period}</li>
             </>
         )
 }
