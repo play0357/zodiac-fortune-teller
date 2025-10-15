@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^4.0.5",
     "@apollo/server": "^5.0.0",
+    "@google-cloud/translate": "^9.2.1",
     "graphql": "^16.11.0",
     "normalize.css": "^8.0.1",
     "react": "^19.1.1",

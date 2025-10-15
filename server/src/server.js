@@ -2,15 +2,17 @@ import { ApolloServer } from "@apollo/server";
 import { resolvers } from "./resolvers.js";
 import { typeDefs } from "./schema.js";
 import { startStandaloneServer } from '@apollo/server/standalone'
-import { allZodiacs, fetchFortuneTeller } from "./data.js";
+import translate, { allZodiacs, fetchFortuneTeller } from "./data.js";
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'; //cors 허용 문제
 
 //Apollo Server 서버 인스턴스 생성
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
 });
 
-// 테스트 코드(단일 객체 추출)
+// 테스트 코드(단일 별자리 추출)
 const testDatafetch = async (zodiac) => {
   try {
     const data = await fetchFortuneTeller(zodiac);
@@ -30,6 +32,16 @@ const testAllDataFetch = async () => {
   }
 
 }
+//테스트 코드(번역기 호출)
+const testTranslation = async () => {
+  try {
+    console.log('번역기 테스트 시작');
+    const [translatedText] = await translate.translate('hello world', 'ko');
+    console.log('번역 결과:', translatedText);
+  } catch (error) {
+    console.error('테스트 번역 실패:', error.message, error.stack);
+  }
+};
 
 //apollo server 시작하기
 const startServer = async () => { //promise를 반환하는 서버 시작 메소드
@@ -45,6 +57,7 @@ const startServer = async () => { //promise를 반환하는 서버 시작 메소
     // 데이터 불러오기 테스트
     // await testAllDataFetch();
     // await testDatafetch('aries');
+    // await testTranslation();
   } catch (error) {
     console.error('서버 시작 실패: ', error);
     process.exit(1); // 프로세스 종료

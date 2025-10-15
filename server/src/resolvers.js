@@ -1,5 +1,6 @@
 //리졸버 Query나 mutation 불러와서 상태를 조회하거나 업데이트 함
 import { fetchFortuneTeller, allZodiacs, zodiacsInfo } from "./data.js";
+import translate from "./data.js";
 
 // 별자리 배열이나 각 별자리 해당 정보 불러오기
 export const resolvers = {
@@ -53,8 +54,15 @@ export const resolvers = {
         console.log(`allZodiacs 쿼리 에러: `, error.message)
         throw new Error(`별자리를 가져오는데 실패했어요... ${error.message}`);
       }
-
-
+    },
+    // 번역기
+    translate: async (_, { text, targetLanguage }) => {
+      try {
+        const [translateText] = await translate.translate(text, targetLanguage);
+        return { translateText };
+      } catch (error) {
+        throw new Error(`번역하는데 문제가 발생했어요! ${error.message}`)
+      }
     }
   },
 };
