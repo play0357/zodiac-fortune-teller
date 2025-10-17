@@ -1,13 +1,16 @@
 
 // 선택 된 월 일 기반 별자리 반환받아 페이지 전환
 export default function getSignFromPeriod(month, day, zodiacs) {
+  const cleanedDay = typeof day === 'string' ? day.replace('일', '') : day;
+  const parsedDay = parseInt(cleanedDay);
   if (!month || !day || !zodiacs) return null;
 
   const currentYear = new Date().getFullYear();
-  const selected = new Date(currentYear, month - 1, day);
+  const selected = new Date(currentYear, month - 1, parsedDay);
 
   // 날짜 유효성 검사
   if (selected.getMonth() + 1 !== month || selected.getDate() !== day) {
+    console.log("반환값이 null 이에요...");
     return null;
   }
 
@@ -22,7 +25,7 @@ export default function getSignFromPeriod(month, day, zodiacs) {
     }
     return selected >= startDate && selected <= endDate;
   });
-
+  console.log("반환 별자리: ",zodiac);
   return zodiac ? zodiac.sign : null;
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BirthdaySelectorBox, Container, Result, StyledSelect } from "../styles/styledBirthdaySelector";
-import  getSignFromPeriod  from './getSignFromPeriod'
+import getSignFromPeriod from './getSignFromPeriod'
 import { useQuery } from "@apollo/client/react";
 import { GET_ALL_ZODIAC } from "../queries/fortuneQuery";
 // 월 생성
@@ -32,12 +32,12 @@ const months = [
 // const years = generateYears();
 
 
-function BirthdaySelector() {
+ function BirthdaySelector() {
     // const [selectedYear, setSelectedYear] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedDay, setSelectedDay] = useState('');
 
-    const {data, loading, error} = useQuery(GET_ALL_ZODIAC);
+    const { data, loading, error } = useQuery(GET_ALL_ZODIAC);
 
     // const handleYearChange = (event) => {
     //     setSelectedYear(event.target.value);
@@ -45,15 +45,24 @@ function BirthdaySelector() {
     // };
     const handleMonthChange = (event) => {
         setSelectedMonth(event.target.value);
-        setSelectedDay('') // 월 변경시 일 초기화
         console.log(event.target.value);
+        setSelectedDay('') // 월 변경시 일 초기화
     };
     const handleDayChange = (event) => {
-        setSelectedDay(event.target.value);
+        const dayvalue = event.target.value
+        console.log("날짜 반환값: ", dayvalue)
+        setSelectedDay(dayvalue);
     };
     //선택 월 일 배열
     const selectedMonthData = months.find((m) => m.value === selectedMonth);
-    const days = selectedMonthData ? Array.from({ length: selectedMonthData.days }, (_, i) => ({ value: (i + 1).toString().padStart(2, '0'), label: `${i + 1}일` })) : [];
+    const days = selectedMonthData ? Array.from({ length: selectedMonthData.days }, (_, i) => {
+        const dayNum = i + 1;
+        return {
+          value: dayNum.toString().padStart(2, '0'), // "01", "02", ...
+          label: dayNum, // "1", "2", ...
+        };
+      })
+    : [];
 
     //선택된 월 일 표시
     const selectedDate = selectedMonth && selectedDay ? `${selectedMonth}월 ${selectedDay}` : '';
@@ -61,6 +70,7 @@ function BirthdaySelector() {
     //컴포넌트 불러와서 별자리 계산
 
     const sign = data && !loading && !error ? getSignFromPeriod(parseInt(selectedMonth), parseInt(selectedDay), data.allZodiacs) : null;
+
 
     return (
         <Container>
@@ -82,14 +92,24 @@ function BirthdaySelector() {
 
                 <StyledSelect value={selectedDay} onChange={handleDayChange} disabled={!selectedMonth}>
                     <option value="" disabled>일</option>
-                    {days.map(day => <option key={day.value} label={day.label}>{day.value}일</option>)}
+                    {days.map(day => <option key={day.value} label={`${day.label}일`}>{day.value}</option>)}
                 </StyledSelect>
 
             </BirthdaySelectorBox>
             <Result>
-                <Link to={sign ? `/zodiac/${sign}` : null} >
-                    {selectedDate ? ` 당신의 운세 보러가기` : '아직 생일을 알려주시지 않았어요'}
-                </Link>
+                {loading ? (
+                    <p>별자리 데이터를 불러오는 중...</p>
+                ) : error ? (
+                    <p>오류: {error.message}</p>
+                ) : !selectedDate ? (
+                    <p>생일을 알려주세요</p>
+                ) : !sign ? (
+                    <p>유효한 별자리를 찾을 수 없습니다</p>
+                ) : (
+                    <Link to={`/zodiac/${sign}`}>
+                        당신의 운세 보러가기
+                    </Link>
+                )}
             </Result>
 
         </Container>

@@ -21,8 +21,8 @@ export const resolvers = {
           sign: data.sign,
           horoscope: data.horoscope,
           period: zodiacsInfo.find(z => z.sign === data.sign)?.period || '알 수 없음',
-          start: data.start || { month: 0, day: 0 },
-          end: data.end || { month: 0, day: 0 }
+          start: zodiacsInfo.find(z => z.sign === data.sign)?.start || { month: 0, day: 0 },
+          end: zodiacsInfo.find(z => z.sign === data.sign)?.end || { month: 0, day: 0 }
         };
       } catch (error) {
         console.error(`getZodiac(${sign}) 에러:`, error.message);
@@ -46,8 +46,8 @@ export const resolvers = {
             date: data.date,
             horoscope: data.horoscope,
             period: zodiacsInfo.find(z => z.sign === data.sign)?.period || '알 수 없음',
-            start: data.start || { month: 0, day: 0 },
-            end: data.end || { month: 0, day: 0 }
+            start: zodiacsInfo.find(z => z.sign === data.sign)?.start || { month: 0, day: 0 },
+            end: zodiacsInfo.find(z => z.sign === data.sign)?.end || { month: 0, day: 0 }
           }
         });
       } catch (error) {

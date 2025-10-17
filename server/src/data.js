@@ -1,10 +1,12 @@
 //별자리 목록 및 데이터 외부 API 키 가져오기
 import { Translate } from '@google-cloud/translate/build/src/v2/index.js';
-import dotenv from 'dotenv'
+import dotenv, { config } from 'dotenv'
+import path from 'path'
 import { GoogleAuth, JWT, JWTAccess } from 'google-auth-library';
 import fs from 'fs';
+
 //api key env 파일로 불러오기
-dotenv.config();
+dotenv.config({path: path.resolve(process.cwd(), '../.env')});
 const apiKey = process.env.VITE_API_KEY; //api 키 가져옴
 if (!apiKey) console.error('문제 발생')
 //별자리 고정  기간 데이터
@@ -20,8 +22,8 @@ export const zodiacsInfo = [
   { sign: 'Virgo', start: { month: 8, day: 23 }, end: { month: 9, day: 22 }, period: '8월 23일 ~ 9월 22일' },
   { sign: 'Libra', start: { month: 9, day: 23 }, end: { month: 10, day: 22 }, period: '9월 23일 ~ 10월 22일' },
   { sign: 'Scorpio', start: { month: 10, day: 23 }, end: { month: 11, day: 22 }, period: '10월 23일 ~ 11월 22일' },
-  { sign: 'Sagittarius', start: { month: 11, day: 23 }, end: { month: 12, day: 24 }, period: '11월 23일 ~ 12월 24일' },
-  { sign: 'Capricorn', start: { month: 12, day: 25 }, end: { month: 1, day: 19 }, period: '12월 25일 ~ 1월 19일' },
+  { sign: 'Sagittarius', start: { month: 11, day: 23 }, end: { month: 12, day: 21 }, period: '11월 23일 ~ 12월 24일' },
+  { sign: 'Capricorn', start: { month: 12, day: 22 }, end: { month: 1, day: 19 }, period: '12월 25일 ~ 1월 19일' },
 ];
 
 
@@ -54,7 +56,7 @@ export const fetchFortuneTeller = async (sign) => {
 
   const data = await response.json();
   // 성공 시 로그 생략
-  return data; // { date, sign, horoscope }
+  return data; // { date, sign, horoscope, period }
 };
 
 export const fetchZodiacList = async () => {
@@ -83,10 +85,10 @@ export const allZodiacs = async () => {
 
 //환경 변수 검증
 const keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
 // 필수 환경 변수 체크
 if (!keyFilename) {
-  console.error('❌ .env 파일에 필수 변수가 누락되었습니다.');
-  console.error('필요한 변수: GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_PROJECT_ID');
+  console.error('❌ GOOGLE_APPLICATION_CREDENTIALS가 .env 파일에 없습니다.');
   process.exit(1);
 }
 let credentials;
