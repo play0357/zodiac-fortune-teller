@@ -1,0 +1,8 @@
+:root {
+  --primary-color: #1a1a40; /* navy 블루 */
+  --accent-color: #2a1a60; /* 퍼플 톤 */
+  --background-end: #000000; /* 검정 */
+  --star-color: #ffffff; /* 별 색상 */
+  --card-bg: rgba(255, 255, 255, 0.1); /* 카드 배경 */
+  --card-border: rgba(255, 255, 255, 0.2); /* 카드 테두리 */
+}

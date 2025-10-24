@@ -46,7 +46,7 @@ export const StyledSelect = styled.select`
 
   &:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
   }
 
@@ -62,7 +62,7 @@ export const StyledSelect = styled.select`
 
 export const Result = styled.button`
   font-size: 1rem;
-  color: #333;
+  color: #fff;
   font-weight: ${props => (props.hasDate ? 'bold' : 'normal')};
   margin: auto;
   margin-top: 10px;
@@ -76,6 +76,6 @@ export const Result = styled.button`
   transition: 0.2s ease;
   
   &:hover {
-  background: #528bfdff;
+  background: var(--accent-color);
   color: #fff;
 `;
