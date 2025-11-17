@@ -3,6 +3,7 @@ import { GET_ZODIAC } from "../queries/fortuneQuery";
 import { ErrorMessage, Loading } from "../styles/styledLoading";
 import { useParams } from "react-router-dom";
 import TranslateQuote from "./translateQuote";
+import { ContentCard } from "../styles/styledCard";
 export default function DailyFortune() {
     const { sign } = useParams(); //url에서 :sign 가져오기
     const { loading, data, error } = useQuery(GET_ZODIAC, {
@@ -26,13 +27,11 @@ export default function DailyFortune() {
         )
     }
     const zodiac = data.getZodiac; //data.getZodiac 객체 가져오기
-    return (     
-            <>
-                <li><TranslateQuote text ={zodiac.sign} /></li>
-                <li>오늘 날짜:{zodiac.date}</li>
-                <li></li>
-                <li> <TranslateQuote text ={zodiac.horoscope} /></li>
-                <li>  {zodiac.period}</li>
-            </>
-        )
+    return (
+        <ContentCard>
+                <li><TranslateQuote text={zodiac.sign} /></li>
+                <li>오늘 날짜 : {zodiac.date}</li>
+                <li> <TranslateQuote text={zodiac.horoscope} /></li>
+        </ContentCard>
+    )
 }

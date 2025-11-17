@@ -17,6 +17,7 @@ export const Card = styled.ol`
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 더 강한 그림자 */
     transform: scale(1.05); /* 5% 확대 */
     cursor: pointer;
+    color: var(--accent-color);
   }
 `;
 
@@ -46,4 +47,38 @@ export const CardList = styled.ul`
     }
   }
 
+`;
+
+export const ContentCard = styled.div`
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  gap: 550px;
+  border-radius: 15px;
+  border: 1px solid var(--card-border);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  p {
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+    h1 {
+      font-size: 1.8rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
 `;

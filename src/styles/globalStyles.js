@@ -15,7 +15,7 @@ const GlobalStyles = createGlobalStyle`
     line-height: 1.5;
   }
 
-  ul, ol {
+  ul, ol, li {
     list-style: none; /* 리스트의 점 제거 */
   }
 

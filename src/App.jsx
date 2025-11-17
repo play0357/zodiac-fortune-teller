@@ -1,6 +1,7 @@
 import Zodiacs from './Route/Zodiacs'
 import Home from './Route/Home'
 import Zodiac from './Route/Zodiac'
+import InputBirthday from './Route/InputBirthday'
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Home/>}/>
+        <Route path='/birthday' element={<InputBirthday/>}/>
         <Route path='/zodiacs' element={<Zodiacs/>}/>
         <Route path= '/zodiac/:sign' element={<Zodiac/>} />
       </Routes>

@@ -16,8 +16,31 @@ export const resolvers = {
         if (!data || !data.sign || !data.date || !data.horoscope) {
           throw new Error(`필수 필드 누락: ${JSON.stringify(data)}`);
         }
+        const formatToKorean = (dateStr, addHours = 0) => {
+          try {
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return dateStr; // 파싱 불가 시 원본 반환
+
+            // 시간 보정: addHours만큼 더함 (ms 단위)
+            if (addHours !== 0) {
+              d.setTime(d.getTime() + addHours * 60 * 60 * 1000);
+            }
+
+            return new Intl.DateTimeFormat('ko-KR', {
+              timeZone: 'Asia/Seoul',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'long',
+            }).format(d);
+          } catch {
+            return dateStr;
+          }
+        };
+        // 사용 예: API 시간에 한국시(+9) 더해서 포맷
+        const formattedDate = formatToKorean(data.date, 12);
         return {
-          date: data.date,
+          date: formattedDate,
           sign: data.sign,
           horoscope: data.horoscope,
           period: zodiacsInfo.find(z => z.sign === data.sign)?.period || '알 수 없음',
@@ -29,7 +52,7 @@ export const resolvers = {
         throw new Error(`운세 데이터를 가져오는 데 실패했어요... ${error.message}`);
       }
     },
-    //모든 별자리
+    //모든 별자리 데이터 추출
     allZodiacs: async () => {
       try {
         const data = await allZodiacs();
